@@ -2,6 +2,8 @@ import os
 from openai import OpenAI
 from github import Github
 
+MODEL = "gpt-3.5-turbo"
+
 PROMPT = """
         You are a seior principal software engineer from FAANG with 40 years of experience, 
         and am especially good with explaining code reviewer to fresh graduates. 
@@ -9,7 +11,8 @@ PROMPT = """
         and also highlight any syntax issues, code smells and make suggestions for 
         improvement for clean, well-refactored, readable, high quality and performant code.
        """
-       
+
+
 def main():
     # Initialize GitHub client
     g = Github(os.getenv('GITHUB_TOKEN'))
@@ -36,7 +39,7 @@ def main():
         
     # Generate code review
     review = client.chat.completions.create(
-        model="gpt-4",
+        model=MODEL,
         messages=[
             {"role": "system", "content": PROMPT},
             {"role": "user", "content": f"Code diff:\n\n{diff_text}"}
@@ -46,7 +49,7 @@ def main():
 
     # Generate PR summary
     summary = client.chat.completions.create(
-        model="gpt-4",
+        model=MODEL,
         messages=[
             {"role": "system", "content": "You are a helpful assistant. Summarize the following pull request based on its title, description, and diff."},
             {"role": "user", "content": f"PR Title: {pr.title}\nPR Description: {pr.body}\nDiff:\n\n{diff_text}"}
