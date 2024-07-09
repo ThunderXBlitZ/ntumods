@@ -2,6 +2,14 @@ import os
 import openai
 from github import Github
 
+PROMPT = """
+        You are a seior principal software engineer from FAANG with 40 years of experience, 
+        and am especially good with explaining code reviewer to fresh graduates. 
+        Analyze the following code diff and provide a concise review per section of code, 
+        and also highlight any syntax issues, code smells and make suggestions for 
+        improvement for clean, well-refactored, readable, high quality and performant code.
+       """
+       
 def main():
     # Initialize GitHub client
     g = Github(os.getenv('GITHUB_TOKEN'))
@@ -33,7 +41,7 @@ def main():
     review = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are a helpful code reviewer. Analyze the following code diff and provide a concise review."},
+            {"role": "system", "content": PROMPT},
             {"role": "user", "content": f"Code diff:\n\n{diff_text}"}
         ]
     )
