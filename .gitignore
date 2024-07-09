@@ -1,5 +1,7 @@
 ## Project
 scraper/venv
+scraper/raw_data
+scraper/output
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
