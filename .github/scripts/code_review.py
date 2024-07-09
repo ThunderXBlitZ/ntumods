@@ -1,5 +1,5 @@
 import os
-import openai
+from openai import OpenAI
 from github import Github
 
 PROMPT = """
@@ -20,14 +20,9 @@ def main():
     # Get PR diff
     diff = pr.get_files()
     
-    # TODO
-    print(diff)
-    for f in diff:
-        if f.patch is not None:
-            print(f.patch)
-        else:
-            print(f.filename + " has no PATCH.")
-            
+    # Handle files without PATCH
+    no_patch_files = [f.filename for f in diff if f.patch is None]
+
     diff_text = "\n".join([f.patch for f in diff if f.patch is not None])
 
     # If diff_text is empty, provide a fallback message
@@ -35,10 +30,12 @@ def main():
         diff_text = "No textual changes found in this PR. It may contain binary files, very large files, or only renamed files."
 
     # Initialize OpenAI
-    openai.api_key = os.getenv('OPENAI_API_KEY')
-
+    client = OpenAI(
+        api_key=os.environ.get("OPENAI_API_KEY"),
+    )
+        
     # Generate code review
-    review = openai.ChatCompletion.create(
+    review = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": PROMPT},
@@ -48,7 +45,7 @@ def main():
     review_comment = review.choices[0].message.content
 
     # Generate PR summary
-    summary = openai.ChatCompletion.create(
+    summary = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a helpful assistant. Summarize the following pull request based on its title, description, and diff."},
@@ -60,6 +57,8 @@ def main():
     # Post comments
     pr.create_issue_comment(f"## Code Review\n\n{review_comment}")
     pr.create_issue_comment(f"## PR Summary\n\n{summary_comment}")
+    pr.create_issue_comment(f"## Files without PATCH (and hence not reviewed):\n\n{', '.join(no_patch_files)}")
+
 
 if __name__ == "__main__":
     main()
