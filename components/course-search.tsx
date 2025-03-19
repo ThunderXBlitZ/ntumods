@@ -52,6 +52,9 @@ const mockCourses: Course[] = [
         startTime: "09:00",
         endTime: "11:00",
         location: "Hall A",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
       {
         id: "cs101-lab1",
@@ -61,6 +64,9 @@ const mockCourses: Course[] = [
         startTime: "14:00",
         endTime: "16:00",
         location: "Lab 1",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
       {
         id: "cs101-lab2",
@@ -70,6 +76,9 @@ const mockCourses: Course[] = [
         startTime: "10:00",
         endTime: "12:00",
         location: "Lab 2",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
     ],
     exam: { date: "2023-12-15", startTime: "09:00", endTime: "12:00", location: "Main Hall" },
@@ -88,6 +97,9 @@ const mockCourses: Course[] = [
         startTime: "11:00",
         endTime: "13:00",
         location: "Hall B",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
       {
         id: "math201-lec2",
@@ -97,6 +109,9 @@ const mockCourses: Course[] = [
         startTime: "11:00",
         endTime: "13:00",
         location: "Hall B",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
       {
         id: "math201-tut",
@@ -106,6 +121,9 @@ const mockCourses: Course[] = [
         startTime: "15:00",
         endTime: "16:00",
         location: "Room 105",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
     ],
     exam: { date: "2023-12-18", startTime: "14:00", endTime: "17:00", location: "Main Hall" },
@@ -124,6 +142,9 @@ const mockCourses: Course[] = [
         startTime: "14:00",
         endTime: "16:00",
         location: "Hall C",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
       {
         id: "phys101-lab",
@@ -133,6 +154,9 @@ const mockCourses: Course[] = [
         startTime: "09:00",
         endTime: "11:00",
         location: "Physics Lab",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
     ],
     exam: { date: "2023-12-20", startTime: "09:00", endTime: "12:00", location: "Science Building" },
@@ -151,6 +175,9 @@ const mockCourses: Course[] = [
         startTime: "09:00",
         endTime: "11:00",
         location: "Room 201",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
       {
         id: "eng102-sem2",
@@ -160,6 +187,9 @@ const mockCourses: Course[] = [
         startTime: "14:00",
         endTime: "16:00",
         location: "Room 201",
+        courseId: "",
+        courseName: "",
+        courseCode: ""
       },
     ],
     exam: { date: "2023-12-12", startTime: "14:00", endTime: "16:00", location: "Arts Building" },
@@ -210,8 +240,8 @@ export default function CourseSearch({ onAddCourse, selectedCourses, onRemoveCou
     <Card className="bg-white shadow-md">
       <CardHeader className="bg-[#4ECDC4] text-white rounded-t-xl">
         <CardTitle className="flex items-center gap-2">
-          <Search className="h-5 w-5" />
-          Course Search
+          <Search className="h-18 w-5" />
+          <h1 className="text-2xl font-bold">Course Search</h1>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4">

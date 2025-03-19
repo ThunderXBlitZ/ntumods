@@ -65,8 +65,8 @@ export default function ExamSchedule({ courses }: ExamScheduleProps) {
     <Card className="bg-white shadow-md">
       <CardHeader className="bg-[#1A2238] text-white rounded-t-xl flex flex-row items-center justify-between">
         <CardTitle className="flex items-center gap-2">
-          <CalendarDays className="h-5 w-5" />
-          Exam Schedule
+          <CalendarDays className="h-16 w-5" />
+          <h1 className="text-2xl font-bold">Exam Schedule</h1>
         </CardTitle>
         {hasConflicts() && <Badge className="bg-[#FF6B6B]">Conflicts Detected</Badge>}
       </CardHeader>
