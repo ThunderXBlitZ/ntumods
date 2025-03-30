@@ -1,17 +1,18 @@
 "use client"
 
+import { useRef, useEffect } from "react"
 import { useDrop } from "react-dnd"
 import { X } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import type TimetableModule from "./timetable-module"
+import { TimetableData } from "./timetable-module" // Import the component with a different name
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 const timeSlots = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
 
 interface TimetableProps {
-  modules: TimetableModule[]
+  modules: TimetableData[] // Use the imported type
   onRemoveModule: (moduleId: string) => void
   onModuleDrop: (moduleId: string, day: string, startTime: string) => void
 }
@@ -76,7 +77,7 @@ export default function Timetable({ modules, onRemoveModule, onModuleDrop }: Tim
 interface TimeSlotCellProps {
   day: string
   time: string
-  modules: TimetableModule[]
+  modules: TimetableData[]
   onRemoveModule: (moduleId: string) => void
   onModuleDrop: (moduleId: string, day: string, startTime: string) => void
 }
@@ -92,9 +93,17 @@ function TimeSlotCell({ day, time, modules, onRemoveModule, onModuleDrop }: Time
       isOver: !!monitor.isOver(),
     }),
   }))
+  
+  const ref = useRef<HTMLDivElement>(null)
+  
+  useEffect(() => {
+    if (ref.current) {
+      drop(ref)
+    }
+  }, [drop])
 
   return (
-    <div ref={drop} className={`p-1 border-r min-h-[80px] relative ${isOver ? "bg-[#4ECDC4]/10" : ""}`}>
+    <div ref={ref} className={`p-1 border-r min-h-[80px] relative ${isOver ? "bg-[#4ECDC4]/10" : ""}`}>
       {modules.map((module) => (
         <div key={module.id} className="mb-1 relative">
           <div

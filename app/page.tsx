@@ -8,29 +8,12 @@ import Header from "@/components/header"
 import CourseSearch from "@/components/course-search"
 import Timetable from "@/components/timetable"
 import ExamSchedule from "@/components/exam-schedule"
-
-// Define the Course type
-interface Course {
-  id: string
-  name: string
-  code: string
-  credits: number
-}
-
-// Define the TimetableModule type
-interface TimetableModule {
-  id: string
-  courseId: string
-  type: string
-  day: string
-  startTime: string
-  endTime: string
-  location: string
-}
+import { TimetableData } from "@/components/timetable-module"
+import { Course } from "@/types"
 
 export default function TimetablePage() {
   const [selectedCourses, setSelectedCourses] = useState<Course[]>([])
-  const [timetableModules, setTimetableModules] = useState<TimetableModule[]>([])
+  const [timetableModules, setTimetableModules] = useState<TimetableData[]>([])
 
   const handleAddCourse = (course: Course) => {
     if (!selectedCourses.some((c) => c.id === course.id)) {
@@ -43,7 +26,7 @@ export default function TimetablePage() {
     setTimetableModules(timetableModules.filter((m) => m.courseId !== courseId))
   }
 
-  const handleAddModule = (module: TimetableModule) => {
+  const handleAddModule = (module: TimetableData) => {
     setTimetableModules([...timetableModules, module])
   }
 
@@ -85,4 +68,3 @@ export default function TimetablePage() {
     </DndProvider>
   )
 }
-

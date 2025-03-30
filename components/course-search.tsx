@@ -7,34 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-
-// Define the Course and TimetableModule interfaces
-interface Course {
-  id: string
-  code: string
-  name: string
-  description: string
-  modules: TimetableModule[]
-  exam: {
-    date: string
-    startTime: string
-    endTime: string
-    location: string
-  }
-}
-
-interface TimetableModule {
-  id: string
-  courseId: string
-  name: string
-  courseName: string
-  courseCode: string
-  type: string
-  day: string
-  startTime: string
-  endTime: string
-  location: string
-}
+import { Course } from "@/types"
+import { TimetableData } from "@/components/timetable-module" 
 
 // Mock data - in a real app, this would come from an API
 const mockCourses: Course[] = [
@@ -200,7 +174,7 @@ interface CourseSearchProps {
   onAddCourse: (course: Course) => void
   selectedCourses: Course[]
   onRemoveCourse: (courseId: string) => void
-  onAddModule: (module: TimetableModule) => void
+  onAddModule: (module: TimetableData) => void
 }
 
 export default function CourseSearch({ onAddCourse, selectedCourses, onRemoveCourse, onAddModule }: CourseSearchProps) {
